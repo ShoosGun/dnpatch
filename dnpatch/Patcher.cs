@@ -49,7 +49,11 @@ namespace dnpatch
             if ((target.Indices != null || target.Index != -1) &&
                 (target.Instruction != null || target.Instructions != null))
             {
-                _patcher.PatchOffsets(target);
+                if (target.InsertInstructions)
+                    _patcher.PatchAndInsert(target);
+
+                else
+                    _patcher.PatchOffsets(target);
             }
             else if ((target.Index == -1 && target.Indices == null) &&
                      (target.Instruction != null || target.Instructions != null))
@@ -69,7 +73,11 @@ namespace dnpatch
                 if ((target.Indices != null || target.Index != -1) &&
                     (target.Instruction != null || target.Instructions != null))
                 {
-                    _patcher.PatchOffsets(target);
+                    if (target.InsertInstructions)
+                        _patcher.PatchAndInsert(target);
+
+                    else
+                        _patcher.PatchOffsets(target);
                 }
                 else if ((target.Index == -1 && target.Indices == null) &&
                          (target.Instruction != null || target.Instructions != null))

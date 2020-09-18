@@ -77,6 +77,32 @@ namespace dnpatch
             }
         }
 
+        public void PatchAndInsert(Target target)
+        {
+            string[] nestedClasses = { };
+            if (target.NestedClasses != null)
+            {
+                nestedClasses = target.NestedClasses;
+            }
+            else if (target.NestedClass != null)
+            {
+                nestedClasses = new[] { target.NestedClass };
+            }
+            var type = FindType(target.Namespace + "." + target.Class, nestedClasses);
+            var method = FindMethod(type, target.Method, target.Parameters, target.ReturnType);
+            var instructions = method.Body.Instructions;
+
+            if (target.Instructions != null && target.Indices != null)
+            {
+                for (int i = 0; i < target.Instructions.Length; i++)
+                {
+                    instructions.Insert(target.Indices[i], target.Instructions[i]);
+
+                }
+            }
+
+        }
+
         public  void PatchOffsets(Target target)
         {
             string[] nestedClasses = { };

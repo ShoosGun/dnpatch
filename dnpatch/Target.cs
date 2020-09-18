@@ -50,6 +50,11 @@ namespace dnpatch
 
     public partial class Target
     {
+        public bool InsertInstructions { get; set; } = false;
+    }
+
+    public partial class Target
+    {
         public string[] NestedClasses { get; set; }
     }
 
